@@ -13,6 +13,8 @@ export default async function AppAuthLayout({
     redirect("/")
   }
 
+  console.log(process.env.NEXT_PUBLIC_WORKERS_KEY)
+
   const dbUser = await fetch(
     `${process.env.NEXT_PUBLIC_DATABASE_WORKER_URL}/api/user?id=${user.id}`,
     {
@@ -21,6 +23,10 @@ export default async function AppAuthLayout({
       },
     }
   )
+
+  if (!dbUser.ok) {
+    return <div>Not okay</div>
+  }
   const dbUserJSON = (await dbUser.json()) as User
 
   if (!dbUserJSON.id) {

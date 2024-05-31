@@ -19,6 +19,10 @@ export default async function DashboardPage() {
       },
     }
   )
+
+  if (!userRes.ok) {
+    return <div>You are not logged in</div>
+  }
   const userData = (await userRes.json()) as User
 
   const sharedRes = await fetch(
